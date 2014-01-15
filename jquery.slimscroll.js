@@ -78,7 +78,7 @@
         // sets border radius of the rail
         railBorderRadius : '7px',
 
-        initalOpacity: 0
+        initialOpacity: 0
       };
 
       var o = $.extend(defaults, options);
@@ -188,7 +188,7 @@
             width: o.size,
             position: 'absolute',
             top: 0,
-            opacity: o.initalOpacity,
+            opacity: o.initialOpacity,
             display: o.alwaysVisible ? 'block' : 'none',
             'border-radius' : o.borderRadius,
             BorderRadius: o.borderRadius,
@@ -370,9 +370,6 @@
           // fire scrolling event
           me.trigger('slimscrolling', ~~delta);
 
-          // ensure bar is visible
-          showBar();
-
           // trigger hide when scroll is stopped
           hideBar();
         }
@@ -386,7 +383,7 @@
           }
           else
           {
-            document.attachEvent("onmousewheel", _onWheel)
+            document.attachEvent("onmousewheel", _onWheel);
           }
         }
 
