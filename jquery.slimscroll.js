@@ -76,7 +76,9 @@
         borderRadius: '7px',
 
         // sets border radius of the rail
-        railBorderRadius : '7px'
+        railBorderRadius : '7px',
+
+        initalOpacity: 0
       };
 
       var o = $.extend(defaults, options);
@@ -186,7 +188,7 @@
             width: o.size,
             position: 'absolute',
             top: 0,
-            opacity: o.opacity,
+            opacity: o.initalOpacity,
             display: o.alwaysVisible ? 'block' : 'none',
             'border-radius' : o.borderRadius,
             BorderRadius: o.borderRadius,
@@ -402,6 +404,10 @@
         function showBar()
         {
           // recalculate bar height
+          bar.css({
+            opacity: o.opacity
+          });
+
           getBarHeight();
           clearTimeout(queueHide);
 
