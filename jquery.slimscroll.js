@@ -334,6 +334,10 @@
           var delta = y;
           var maxTop = me.outerHeight() - bar.outerHeight();
 
+          bar.css({
+            opacity: o.opacity
+          });
+
           if (isWheel)
           {
             // move bar with mouse wheel
@@ -370,6 +374,9 @@
           // fire scrolling event
           me.trigger('slimscrolling', ~~delta);
 
+          // ensure bar is visible
+          showBar();
+
           // trigger hide when scroll is stopped
           hideBar();
         }
@@ -401,10 +408,6 @@
         function showBar()
         {
           // recalculate bar height
-          bar.css({
-            opacity: o.opacity
-          });
-
           getBarHeight();
           clearTimeout(queueHide);
 
