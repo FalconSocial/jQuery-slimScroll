@@ -139,7 +139,7 @@
               }
 
               // scroll content by the given offset
-              scrollContent(offset, false, true);
+              scrollContent(offset, false, true, true);
             }
 
             return;
@@ -252,7 +252,7 @@
         // show on parent mouseover
         me.hover(function(){
           isOverPanel = true;
-          showBar();
+          showBar(true);
           hideBar();
         }, function(){
           isOverPanel = false;
@@ -272,8 +272,8 @@
           // prevent scrolling the page if necessary
           if(!releaseScroll)
           {
-  		      e.originalEvent.preventDefault();
-		      }
+            e.originalEvent.preventDefault();
+          }
           if (e.originalEvent.touches.length)
           {
             // see how far user swiped
@@ -328,15 +328,17 @@
           if (!releaseScroll) { e.returnValue = false; }
         }
 
-        function scrollContent(y, isWheel, isJump)
+        function scrollContent(y, isWheel, isJump, preventShow)
         {
           releaseScroll = false;
           var delta = y;
           var maxTop = me.outerHeight() - bar.outerHeight();
 
-          bar.css({
-            opacity: o.opacity
-          });
+            if (!preventShow) {
+                bar.css({
+                    opacity: o.opacity
+                });
+            }
 
           if (isWheel)
           {
@@ -405,12 +407,14 @@
           bar.css({ display: display });
         }
 
-        function showBar()
+        function showBar(foreceShow)
         {
           // recalculate bar height
           getBarHeight();
           clearTimeout(queueHide);
-
+            if (foreceShow) {
+                bar.css('opacity', o.opacity);
+            }
           // when bar reached top or bottom
           if (percentScroll == ~~percentScroll)
           {
