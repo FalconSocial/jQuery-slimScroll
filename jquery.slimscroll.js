@@ -95,6 +95,11 @@
         // used in event handlers and for better minification
         var me = $(this);
 
+        //Set dynamically if the panel is being hovered.
+        isOverPanel = function () {
+            return me.is(':hover');
+        };
+
         // ensure we are not binding it again
         if (me.parent().hasClass(o.wrapperClass))
         {
@@ -251,11 +256,9 @@
 
         // show on parent mouseover
         me.hover(function(){
-          isOverPanel = true;
           showBar(true);
           hideBar();
         }, function(){
-          isOverPanel = false;
           hideBar();
         });
 
@@ -309,7 +312,7 @@
         function _onWheel(e)
         {
           // use mouse wheel only when mouse is over
-          if (!isOverPanel) { return; }
+          if (!isOverPanel()) { return; }
 
           var e = e || window.event;
 
@@ -450,7 +453,7 @@
           if (!o.alwaysVisible)
           {
             queueHide = setTimeout(function(){
-              if (!(o.disableFadeOut && isOverPanel) && !isOverBar && !isDragg)
+              if (!(o.disableFadeOut && isOverPanel()) && !isOverBar && !isDragg)
               {
                 bar.fadeOut('slow');
                 rail.fadeOut('slow');
